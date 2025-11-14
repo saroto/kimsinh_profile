@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import profile from "../assets/kimsinh.png";
+---
+
+<nav class="w-full h-56 bg-[#0b0f17] border-r border-[#0f1724]">
+  <div class="flex justify-center pt-4">
+    <div class="flex">
+      <Image
+        src={profile}
+        alt="My profile photo"
+        width={150}
+        height={150}
+        quality={90}
+        class="rounded-full w-36 h-36 object-cover"
+      />
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <h2 class="typewriter text-[#00ff41]">Kimsinh Seang</h2>
+  </div>
+</nav>
+
+<style>
+  .typewriter {
+    display: inline-block;
+    overflow: hidden; /* Ensures text is hidden until revealed */
+    white-space: nowrap; /* Keeps text on one line */
+    border-right: 3px solid orange; /* Optional: the “cursor” */
+    font-family: "Fira Code", monospace;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    animation:
+      typing 1.5s steps(35, end),
+      blink 0.7s step-end infinite;
+  }
+
+  /* Typewriter effect */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 18%;
+    }
+  }
+
+  /* Blinking cursor */
+  @keyframes blink {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: orange;
+    }
+  }
+</style>

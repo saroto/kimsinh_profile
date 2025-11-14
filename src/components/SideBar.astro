@@ -1,0 +1,96 @@
+<nav
+  aria-label="Primary"
+  class="hidden md:flex fixed left-0 top-0 h-full w-56 bg-[#0b0f17] border-r border-[#0f1724] p-6 flex-col items-start font-mono"
+>
+  <ul class="w-full space-y-2">
+    <li>
+      <a
+        data-section-link
+        href="#about"
+        class="group w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[#9aa3ad] hover:text-[#00ff41] hover:bg-[rgba(0,255,65,0.06)] transition"
+      >
+        <span class="text-sm">About</span>
+      </a>
+    </li>
+    <li>
+      <a
+        data-section-link
+        href="#experience"
+        class="group w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[#9aa3ad] hover:text-[#00ff41] hover:bg-[rgba(0,255,65,0.06)] transition"
+      >
+        <span class="text-sm">Experience</span>
+      </a>
+    </li>
+    <li>
+      <a
+        data-section-link
+        href="#education"
+        class="group w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[#9aa3ad] hover:text-[#00ff41] hover:bg-[rgba(0,255,65,0.06)] transition"
+      >
+        <span class="text-sm">Education</span>
+      </a>
+    </li>
+    <li>
+      <a
+        data-section-link
+        href="#project"
+        class="group w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[#9aa3ad] hover:text-[#00ff41] hover:bg-[rgba(0,255,65,0.06)] transition"
+      >
+        <span class="text-sm">Project</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Mobile bottom bar -->
+<nav
+  aria-label="Primary mobile"
+  class="md:hidden fixed bottom-0 left-0 right-0 bg-[#0b0f17] border-t border-[#0f1724] p-2 flex justify-around font-mono"
+>
+  <a
+    data-section-link
+    href="#about"
+    class="flex-1 text-center px-2 py-2 rounded-md text-[#9aa3ad] hover:text-[#00ff41] hover:bg-[rgba(0,255,65,0.06)] transition"
+    >About</a
+  >
+  <a
+    data-section-link
+    href="#experience"
+    class="flex-1 text-center px-2 py-2 rounded-md text-[#9aa3ad] hover:text-[#00ff41] hover:bg-[rgba(0,255,65,0.06)] transition"
+    >Experience</a
+  >
+  <a
+    data-section-link
+    href="#education"
+    class="flex-1 text-center px-2 py-2 rounded-md text-[#9aa3ad] hover:text-[#00ff41] hover:bg-[rgba(0,255,65,0.06)] transition"
+    >Education</a
+  >
+  <a
+    data-section-link
+    href="#project"
+    class="flex-1 text-center px-2 py-2 rounded-md text-[#9aa3ad] hover:text-[#00ff41] hover:bg-[rgba(0,255,65,0.06)] transition"
+    >Project</a
+  >
+</nav>
+
+<script type="module">
+  // ...existing code...
+  const links = Array.from(document.querySelectorAll("[data-section-link]"));
+  function setActive() {
+    const hash = location.hash || "#about";
+    links.forEach((l) => {
+      const isActive = l.getAttribute("href") === hash;
+      l.classList.toggle("bg-[rgba(0,255,65,0.12)]", isActive);
+      l.classList.toggle("text-[#00ff41]", isActive);
+      l.classList.toggle("font-semibold", isActive);
+      l.setAttribute("aria-current", isActive ? "page" : "");
+    });
+  }
+  window.addEventListener("hashchange", setActive);
+  window.addEventListener("load", setActive);
+  links.forEach((l) =>
+    l.addEventListener("click", () => setTimeout(setActive, 50))
+  );
+</script>
+
+<style></style>
