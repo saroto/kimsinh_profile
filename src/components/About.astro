@@ -1,17 +1,71 @@
-<!doctype html>
+---
+// No props needed for this component
+import GithitIcon from "../assets/github-mark.svg";
+import LinkedInIcon from "../assets/linkedin-svgrepo-com.svg";
+import { Image } from "astro:assets";
+type SocialLink = {
+  name: string;
+  url: string;
+  image: string; // narrow this if you have the exact ImageMetadata type
+};
+const socialLinks: SocialLink[] = [
+  {
+    name: "GitHub",
+    url: "https://github.com/saroto",
+    image: "src/assets/github-mark.svg",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/kimsinh-seang-6594b9201/",
+    image: "src/assets/linkedin-svgrepo-com.svg",
+  },
+  {
+    name: "Telegram",
+    url: "https://t.me/skimsinh",
+    image: "src/assets/telegram-svgrepo-com.svg",
+  },
+];
+---
+
 <div class="bg-[#0b0f17] border-r border-[#0f1724]" id="about">
   <div>
     <!-- add white line -->
     <hr class="border-t border-white mb-4" />
   </div>
-  <h1 class="text-white text-3xl font-mono mb-4">About Me</h1>
-  <p class="text-[#9aa3ad] font-mono leading-relaxed">
-    Hello! I'm Kimsinh Seang, a passionate software developer with a love for
-    creating innovative solutions. With a background in computer science, I
-    specialize in building web applications and have experience working with
-    various technologies including JavaScript, Astro, and more. I'm always eager
-    to learn new skills and take on challenging projects. When I'm not coding, I
-    enjoy exploring the latest tech trends and contributing to open-source
-    communities.
-  </p>
+  <div class="flex flex-row w-full">
+    <div class="flex flex-col mr-8 w-[50%] bg-blue-500 px-8 py-4">
+      <h1 class="text-white text-3xl font-mono mb-4 text-center">About Me!</h1>
+      <p class="text-white font-mono leading-relaxed">
+        Hello! I'm <span class="text-[#00ff41]"> Kimsinh Seang</span>, a
+        passionate software developer with a love for creating innovative
+        solutions. With a background in computer science, I specialize in
+        building web applications and have experience working with various
+        technologies including JavaScript, Astro, and more. I'm always eager to
+        learn new skills and take on challenging projects. When I'm not coding,
+        I enjoy exploring the latest tech trends and contributing to open-source
+        communities.
+      </p>
+    </div>
+    <div class="flex flex-col w-[50%] bg-purple-400 px-8 py-4">
+      <h1 class="text-white text-3xl font-mono mb-4 text-center">
+        Where to find me?
+      </h1>
+      <p class="text-white text-center">
+        You can find me with the following platform
+      </p>
+      <div class="flex flex-row space-x-4 justify-center pt-8">
+        {
+          socialLinks.map((link) => (
+            <a
+              href={link.url}
+              rel="noopener noreferrer"
+              class="hover:opacity-75 transition"
+            >
+              <img src={link.image} alt={link.name} width="50px" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
 </div>
