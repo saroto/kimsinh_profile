@@ -2,27 +2,28 @@
 // No props needed for this component
 import GithitIcon from "../assets/github-mark.svg";
 import LinkedInIcon from "../assets/linkedin-svgrepo-com.svg";
+import TelegramIcon from "../assets/telegram-svgrepo-com.svg";
 import { Image } from "astro:assets";
 type SocialLink = {
   name: string;
   url: string;
-  image: string; // narrow this if you have the exact ImageMetadata type
+  image: string | any; // narrow this if you have the exact ImageMetadata type
 };
 const socialLinks: SocialLink[] = [
   {
     name: "GitHub",
     url: "https://github.com/saroto",
-    image: "src/assets/github-mark.svg",
+    image: GithitIcon,
   },
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/kimsinh-seang-6594b9201/",
-    image: "src/assets/linkedin-svgrepo-com.svg",
+    image: LinkedInIcon,
   },
   {
     name: "Telegram",
     url: "https://t.me/skimsinh",
-    image: "src/assets/telegram-svgrepo-com.svg",
+    image: TelegramIcon,
   },
 ];
 ---
@@ -61,7 +62,7 @@ const socialLinks: SocialLink[] = [
               rel="noopener noreferrer"
               class="hover:opacity-75 transition"
             >
-              <img src={link.image} alt={link.name} width="50px" />
+              <Image src={link.image} alt={link.name} height={50} width={50} />
             </a>
           ))
         }
