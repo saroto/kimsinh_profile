@@ -1,31 +1,53 @@
 ---
-
 ---
 
-<!doctype html>
-<html lang="en" class="flex bg-[#0b0f17] h-full overflow-y-scroll">
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth h-full">
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Lavishly+Yours&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Kimsinh Seang</title>
+    <title>Kimsinh Seang | Portfolio</title>
   </head>
-  <body>
-    <slot />
+  <body
+    class="relative min-h-screen bg-slate-950 text-slate-200 antialiased selection:bg-indigo-500/30 font-inter overflow-x-hidden"
+  >
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-[-1]">
+      <div
+        class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+      >
+      </div>
+      <div
+        class="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-indigo-500/20 mix-blend-screen blur-[128px]"
+      >
+      </div>
+      <div
+        class="absolute top-40 -right-40 h-96 w-96 rounded-full bg-purple-500/20 mix-blend-screen blur-[128px]"
+      >
+      </div>
+    </div>
+
+    <div class="flex flex-col min-h-screen">
+      <slot />
+
+      <footer class="mt-auto py-8">
+        <p
+          class="text-slate-500 text-sm flex justify-center items-center gap-2"
+        >
+          &copy; {new Date().getFullYear()} Kimsinh Seang. Crafted with Astro & Tailwind.
+        </p>
+      </footer>
+    </div>
   </body>
-  <footer>
-    <p class="text-white flex justify-center">
-      &copy; 2025 Kimsinh Seang. All rights reserved.
-    </p>
-  </footer>
 </html>
 
 <style>

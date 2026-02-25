@@ -3,57 +3,57 @@ import { Image } from "astro:assets";
 import profile from "../assets/kimsinh.png";
 ---
 
-<nav class="w-full h-56 bg-[#0b0f17] border-r border-[#0f1724]">
-  <div class="flex justify-center pt-4">
-    <div class="flex">
-      <Image
-        src={profile}
-        alt="My profile photo"
-        width={150}
-        height={150}
-        quality={90}
-        class="rounded-full w-36 h-36 object-cover"
-      />
-    </div>
+<header
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass border-b border-white/5"
+>
+  <div
+    class="max-w-[1440px] mx-auto px-6 h-20 flex items-center justify-between"
+  >
+    <!-- Logo/Brand -->
+    <a href="/" class="flex items-center gap-3 group">
+      <div
+        class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-indigo-500/30 group-hover:border-indigo-400 transition-colors"
+      >
+        <Image
+          src={profile}
+          alt="Kimsinh Seang Logo"
+          width={40}
+          height={40}
+          class="object-cover w-full h-full"
+        />
+      </div>
+      <span
+        class="font-outfit font-bold text-xl tracking-tight text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-cyan-400 transition-all"
+      >
+        Kimsinh
+      </span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8">
+      <ul class="flex items-center gap-6 font-medium text-sm text-slate-300">
+        <li>
+          <a href="#about" class="hover:text-white transition-colors py-2"
+            >About</a
+          >
+        </li>
+        <li>
+          <a href="#experience" class="hover:text-white transition-colors py-2"
+            >Experience</a
+          >
+        </li>
+        <li>
+          <a href="#projects" class="hover:text-white transition-colors py-2"
+            >Projects</a
+          >
+        </li>
+      </ul>
+      <a
+        href="mailto:skimsinh@gmail.com"
+        class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-sm font-medium transition-all hover:scale-105 active:scale-95"
+      >
+        Let's Talk
+      </a>
+    </nav>
   </div>
-  <div class="flex justify-center">
-    <h2 class="typewriter text-[#00ff41]">Kimsinh Seang</h2>
-    <div></div>
-  </div>
-</nav>
-
-<style>
-  .typewriter {
-    display: inline-block;
-    overflow: hidden; /* Ensures text is hidden until revealed */
-    white-space: nowrap; /* Keeps text on one line */
-    border-right: 3px solid orange; /* Optional: the “cursor” */
-    font-family: "Fira Code", monospace;
-    font-size: 2rem;
-    letter-spacing: 1px;
-    animation:
-      typing 1.5s steps(35, end),
-      blink 0.7s step-end infinite;
-  }
-
-  /* Typewriter effect */
-  @keyframes typing {
-    from {
-      width: 0;
-    }
-    to {
-      width: 18%;
-    }
-  }
-
-  /* Blinking cursor */
-  @keyframes blink {
-    from,
-    to {
-      border-color: transparent;
-    }
-    50% {
-      border-color: orange;
-    }
-  }
-</style>
+</header>
