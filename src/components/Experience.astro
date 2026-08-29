@@ -1,49 +1,74 @@
 ---
-import { Briefcase, Calendar } from "lucide-react";
+import SectionHeading from "./SectionHeading.astro";
 
-const experiences = [
+interface Experience {
+  role: string;
+  company: string;
+  period: string;
+  current: boolean;
+  /** Static marker for delivered work, e.g. "Shipped". No live ping. */
+  status?: string;
+  description: string[];
+  tech: string[];
+}
+
+const experiences: Experience[] = [
   {
     role: "Frontend Software Developer",
     company: "Digital Economy and Business Committee",
-    period: "Jan 2026 - Present",
+    period: "Jan 2026 — Present",
     current: true,
     description: [
       "Building a comprehensive web application for the ministry, with a primary focus on digital public services.",
-      "Architecting and developing modern, responsive user interfaces to serve citizens efficiently."
+      "Architecting and developing modern, responsive user interfaces to serve citizens efficiently.",
     ],
-    tech: ["Nuxt.js", "Vue.js", "TailwindCSS"]
+    tech: ["Nuxt.js", "Vue.js", "TailwindCSS"],
+  },
+  {
+    role: "Mobile App Developer",
+    company: "GoLoca \u2014 Freelance",
+    period: "Released",
+    current: false,
+    status: "Shipped",
+    description: [
+      "Built a mobile app that helps people find places to eat, relax, unwind or celebrate with family and friends.",
+      "Implemented promotion and happy hour listings so users can discover what is on offer nearby.",
+      "Developed a stamp system that rewards repeat visits to a venue.",
+      "Added in-app booking so users can reserve a place ahead of time.",
+    ],
+    tech: ["Flutter", "Dart"],
   },
   {
     role: "Web Developer",
     company: "Apsara Media Services (AMS)",
-    period: "May 2025 - Dec 2025",
+    period: "May 2025 — Dec 2025",
     current: false,
     description: [
       "Maintained and updated the AMS3E WordPress website.",
       "Developed a new responsive website from scratch using Nuxt.js.",
       "Integrated APIs to enhance functionality and user experience.",
       "Ensured optimal performance, security, and cross-browser compatibility.",
-      "Built a Facebook auto-reply comment system using Graph API and LLM for smart automation."
+      "Built a Facebook auto-reply comment system using Graph API and LLM for smart automation.",
     ],
-    tech: ["Nuxt.js", "Vue", "WordPress", "Graph API", "LLMs"]
+    tech: ["Nuxt.js", "Vue", "WordPress", "Graph API", "LLMs"],
   },
   {
     role: "Frontend Developer",
     company: "Advance MSP",
-    period: "2024 - 2025",
+    period: "2024 — 2025",
     current: false,
     description: [
       "Developed and maintained responsive web applications using Next.js.",
       "Integrated RESTful APIs and improved system performance.",
       "Collaborated with backend developers to ensure seamless communication.",
-      "Contributed to backend tasks when needed."
+      "Contributed to backend tasks when needed.",
     ],
-    tech: ["Next.js", "React", "REST APIs", "TailwindCSS"]
+    tech: ["Next.js", "React", "REST APIs", "TailwindCSS"],
   },
   {
     role: "Fullstack / Frontend Developer",
     company: "Freelance",
-    period: "2024 - 2025",
+    period: "2024 — 2025",
     current: false,
     description: [
       "Developed a web application to help clients streamline internal operations.",
@@ -51,74 +76,70 @@ const experiences = [
       "Implemented NextAuth.js for secure authentication and session management.",
       "Applied RBAC for user permission control and system access.",
       "Contributed to backend development using Golang for a scalable system.",
-      "Implemented CI/CD pipelines and optimized Nginx and server infrastructure."
+      "Implemented CI/CD pipelines and optimized Nginx and server infrastructure.",
     ],
-    tech: ["Next.js", "Golang", "NextAuth", "Docker", "Nginx", "CI/CD"]
-  }
+    tech: ["Next.js", "Golang", "NextAuth", "Docker", "Nginx", "CI/CD"],
+  },
 ];
 ---
 
 <section id="experience" class="scroll-mt-24">
-  <!-- Section Header -->
-  <div class="flex items-center gap-4 mb-12 opacity-80">
-    <div class="h-[1px] w-12 bg-indigo-500"></div>
-    <h2 class="text-indigo-400 font-semibold tracking-wider uppercase text-sm flex items-center gap-2">
-      <Briefcase size={16} /> Experience
-    </h2>
-  </div>
+  <SectionHeading
+    num="02"
+    title="Experience"
+    note={`${experiences.length} roles`}
+  />
 
-  <div class="relative ml-4 md:ml-0">
-    <!-- Vertical Line -->
-    <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-2 bottom-2 w-[2px] bg-gradient-to-b from-indigo-500/50 via-purple-500/20 to-transparent"></div>
-
-    <div class="space-y-12">
-      {experiences.map((exp, index) => (
-        <div class={`relative flex flex-col md:flex-row gap-8 items-start ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-          
-          <!-- Timeline Node -->
-          <div class="absolute left-[-5px] md:left-1/2 transform md:-translate-x-1/2 mt-1.5 md:mt-0 flex items-center justify-center w-3 h-3 rounded-full bg-slate-950 border-[2px] border-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.6)] z-10">
+  <div class="mt-12 md:mt-16">
+    {
+      experiences.map((exp) => (
+        <article
+          data-reveal
+          class="group grid grid-cols-12 gap-x-8 gap-y-4 border-t border-rule py-10 transition-colors hover:border-rule-strong md:py-12"
+        >
+          {/* Dateline */}
+          <div class="col-span-12 flex items-center gap-3 md:col-span-3 md:block">
+            <p class="label nums-tabular">{exp.period}</p>
             {exp.current && (
-              <div class="absolute w-full h-full rounded-full bg-indigo-400 animate-ping opacity-75"></div>
+              <p class="label mt-0 flex items-center gap-1.5 text-brand md:mt-3">
+                <span class="relative flex h-1.5 w-1.5">
+                  <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+                  <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
+                </span>
+                Current
+              </p>
+            )}
+            {exp.status && (
+              <p class="label mt-0 text-brand md:mt-3">{exp.status}</p>
             )}
           </div>
 
-          <!-- Content Card -->
-          <div class="w-full md:w-[calc(50%-2rem)] ml-6 md:ml-0 group perspective">
-            <div class="glass-card p-6 border border-white/5 group-hover:border-indigo-500/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-              
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <h3 class="text-xl font-outfit font-bold text-white group-hover:text-indigo-300 transition-colors">
-                  {exp.role}
-                </h3>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 text-xs font-medium text-slate-400 border border-white/5">
-                  <Calendar size={12} /> {exp.period}
-                </span>
-              </div>
-              
-              <h4 class="text-lg font-medium text-indigo-400 mb-4">{exp.company}</h4>
-              
-              <ul class="space-y-2 mb-6 text-sm text-slate-300">
-                {exp.description.map((item) => (
-                  <li class="flex items-start gap-2">
-                    <span class="text-indigo-500 mt-1">▹</span>
-                    <span class="leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
+          {/* Body */}
+          <div class="col-span-12 md:col-span-9">
+            <h3 class="font-display text-3xl leading-tight transition-colors group-hover:text-brand md:text-4xl">
+              {exp.role}
+            </h3>
+            <p class="mt-1.5 text-sm text-muted-foreground">{exp.company}</p>
 
-              <div class="flex flex-wrap gap-2 pt-4 border-t border-white/5">
-                {exp.tech.map((t) => (
-                  <span class="px-2.5 py-1 text-xs font-medium text-purple-300 bg-purple-500/10 rounded-md border border-purple-500/20">
-                    {t}
-                  </span>
-                ))}
-              </div>
+            <ul class="mt-6 max-w-2xl space-y-2.5">
+              {exp.description.map((item) => (
+                <li class="grid grid-cols-[1rem_1fr] text-sm leading-relaxed text-muted-foreground">
+                  <span class="select-none text-rule-strong">&mdash;</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
 
-            </div>
+            <ul class="mt-7 flex flex-wrap items-center gap-x-3 gap-y-2">
+              {exp.tech.map((t) => (
+                <li class="label border border-rule px-2.5 py-1.5 text-muted-foreground transition-colors group-hover:border-rule-strong">
+                  {t}
+                </li>
+              ))}
+            </ul>
           </div>
-          
-        </div>
-      ))}
-    </div>
+        </article>
+      ))
+    }
   </div>
 </section>

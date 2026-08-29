@@ -1,59 +1,86 @@
 ---
-import { Image } from "astro:assets";
-import profile from "../assets/kimsinh.png";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const links = [
+  { num: "01", label: "About", href: "#about" },
+  { num: "02", label: "Experience", href: "#experience" },
+  { num: "03", label: "Education", href: "#education" },
+  { num: "04", label: "Work", href: "#work" },
+  { num: "05", label: "Contact", href: "#contact" },
+];
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass border-b border-white/5"
+  class="fixed inset-x-0 top-0 z-50 border-b border-rule bg-background/80 backdrop-blur-md"
 >
-  <div
-    class="max-w-[1440px] mx-auto px-6 h-20 flex items-center justify-between"
-  >
-    <!-- Logo/Brand -->
-    <a href="/" class="flex items-center gap-3 group">
-      <div
-        class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-indigo-500/30 group-hover:border-indigo-400 transition-colors"
-      >
-        <Image
-          src={profile}
-          alt="Kimsinh Seang Logo"
-          width={40}
-          height={40}
-          class="object-cover w-full h-full"
-        />
-      </div>
-      <span
-        class="font-outfit font-bold text-xl tracking-tight text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-cyan-400 transition-all"
-      >
-        Kimsinh
-      </span>
+  <div class="shell flex h-16 items-center justify-between gap-6">
+    <a
+      href="#top"
+      class="font-display text-xl leading-none tracking-tight hover:text-brand"
+    >
+      Kimsinh Seang
     </a>
 
-    <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-8">
-      <ul class="flex items-center gap-6 font-medium text-sm text-slate-300">
-        <li>
-          <a href="#about" class="hover:text-white transition-colors py-2"
-            >About</a
-          >
-        </li>
-        <li>
-          <a href="#experience" class="hover:text-white transition-colors py-2"
-            >Experience</a
-          >
-        </li>
-        <li>
-          <a href="#projects" class="hover:text-white transition-colors py-2"
-            >Projects</a
-          >
-        </li>
+    <nav class="flex items-center gap-6 sm:gap-8">
+      <ul class="hidden items-baseline gap-6 sm:flex md:gap-8">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                data-nav-link={link.href}
+                class="group flex items-baseline gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground aria-[current=true]:text-foreground"
+              >
+                <span class="label nums-tabular text-[0.625rem] transition-colors group-hover:text-brand group-aria-[current=true]:text-brand">
+                  {link.num}
+                </span>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
       </ul>
-      <a
-        href="mailto:skimsinh@gmail.com"
-        class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-sm font-medium transition-all hover:scale-105 active:scale-95"
-      >
-        Let's Talk
-      </a>
+
+      <ThemeToggle />
     </nav>
   </div>
 </header>
+
+<script is:inline>
+  // Mark the section currently in view. Purely decorative; safe to no-op.
+  (() => {
+    const navLinks = [...document.querySelectorAll("[data-nav-link]")];
+    if (!navLinks.length || !("IntersectionObserver" in window)) return;
+
+    const byId = new Map(
+      navLinks.map((a) => [a.getAttribute("data-nav-link").slice(1), a]),
+    );
+    const sections = [...byId.keys()]
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const visible = new Set();
+
+    const paint = () => {
+      // Topmost visible section wins.
+      const active = sections.find((s) => visible.has(s.id))?.id;
+      for (const [id, a] of byId) {
+        if (id === active) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      }
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) visible.add(e.target.id);
+          else visible.delete(e.target.id);
+        }
+        paint();
+      },
+      { rootMargin: "-20% 0px -70% 0px" },
+    );
+
+    sections.forEach((s) => io.observe(s));
+  })();
+</script>

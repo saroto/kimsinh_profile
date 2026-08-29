@@ -1,98 +1,238 @@
 ---
-import { Folder, ExternalLink, Github } from "lucide-react";
+import SectionHeading from "./SectionHeading.astro";
+import { ArrowUpRight } from "lucide-react";
 
-const projects = [
+interface BreakdownRow {
+  name: string;
+  stack: string;
+  /** Omitted for plain fact rows that are not links. */
+  url?: string;
+  /** `true` renders the row as text; the repo would 404 for visitors. */
+  private?: boolean;
+}
+
+interface ProjectLink {
+  label: string;
+  url: string;
+}
+
+interface Project {
+  title: string;
+  eyebrow: string;
+  description: string;
+  links: [ProjectLink, ...ProjectLink[]];
+  /** A structured breakdown, or `tech` chips — a project uses one or the other. */
+  breakdown?: BreakdownRow[];
+  tech?: string[];
+}
+
+// `private: true` repos are not linked — they would 404 for visitors.
+// Flip the flag once a repo is made public and it becomes a link.
+const projects: Project[] = [
   {
-    title: "E-Commerce Platform Redesign",
-    description: "A full-scale redesign and migration of an existing WordPress e-commerce site to a modern headless Next.js architecture.",
-    tech: ["Next.js", "TailwindCSS", "Stripe", "PostgreSQL"],
-    github: "https://github.com/saroto",
-    live: "#",
-    featured: true
+    title: "Scholarize",
+    eyebrow: "Capstone project",
+    description:
+      "A platform for student and advisor collaboration and for discovering research papers. Built as five independent services, including a retrieval-augmented AI assistant that lets users chat directly with a paper — documents are parsed, embedded and queried so answers stay grounded in the source text.",
+    breakdown: [
+      {
+        name: "Frontend",
+        stack: "Next.js · MUI · Socket.IO",
+        url: "https://github.com/saroto/scholarize_frontend_v2",
+        private: true,
+      },
+      {
+        name: "Backend",
+        stack: "Go · Gin · GORM · PostgreSQL",
+        url: "https://github.com/saroto/scholarize_backend_v2",
+        private: false,
+      },
+      {
+        name: "Admin",
+        stack: "Next.js · MUI · Redux",
+        url: "https://github.com/saroto/scholarize_admin_V2",
+        private: true,
+      },
+      {
+        name: "File server",
+        stack: "Laravel 11 · PHP 8.2",
+        url: "https://github.com/saroto/scholarize_fileServer_V2",
+        private: true,
+      },
+      {
+        name: "AI service",
+        stack: "FastAPI · LangChain · Gemini · pgvector",
+        url: "https://github.com/ArisuYukishiro/Sparcs-AIM-Service",
+        private: true,
+      },
+    ],
+    links: [
+      {
+        label: "Backend repository",
+        url: "https://github.com/saroto/scholarize_backend_v2",
+      },
+    ],
   },
   {
-    title: "AI Auto-Reply Bot",
-    description: "An intelligent Facebook comment moderation and auto-reply system leveraging LLMs and the Facebook Graph API to streamline social media management.",
-    tech: ["Node.js", "Meta Graph API", "OpenAI", "Express"],
-    github: "https://github.com/saroto",
-    live: "#",
-    featured: false
+    title: "use-snapping-konva",
+    eyebrow: "Open source package",
+    description:
+      "A lightweight TypeScript utility for Konva.js that adds smart snapping and visual guidelines when dragging or resizing shapes on a canvas. Shapes snap to the stage centre, the stage borders and to each other, with fully configurable guidelines. Framework-agnostic and published to npm.",
+    tech: ["TypeScript", "Konva.js", "npm"],
+    links: [
+      { label: "Repository", url: "https://github.com/saroto/UseSnapKonva" },
+      { label: "npm", url: "https://www.npmjs.com/package/use-snapping-konva" },
+    ],
   },
   {
-    title: "Internal Operations Dashboard",
-    description: "A comprehensive Role-Based Access Control (RBAC) dashboard built to help clients manage internal workflows, employee data, and analytics securely.",
-    tech: ["Vue.js", "Golang", "Docker", "Nginx"],
-    github: "https://github.com/saroto",
-    live: "#",
-    featured: false
+    title: "Maxu",
+    eyebrow: "Collaboration",
+    description:
+      "A macOS desktop app that keeps a small floating island at the top of the screen. Expand it to ask an AI about any word or sentence and get an answer in place \u2014 no switching tabs, no losing your place while reading. Shipped to users as a signed disk image through GitHub Releases.",
+    breakdown: [
+      { name: "Platform", stack: "macOS desktop", private: true },
+      { name: "Role", stack: "Collaborator", private: true },
+      { name: "Delivery", stack: "Signed .dmg via GitHub Releases", private: true },
+    ],
+    links: [
+      { label: "Repository", url: "https://github.com/ArisuYukishiro/Maxu" },
+      {
+        label: "Download",
+        url: "https://github.com/ArisuYukishiro/Maxu/releases",
+      },
+    ],
   },
   {
-    title: "Modern Portfolio V2",
-    description: "The very site you are looking at right now. Built for speed, accessibility, and featuring an immersive glassmorphic design system.",
-    tech: ["Astro", "React", "TailwindCSS", "Framer Motion"],
-    github: "https://github.com/saroto/portfolio",
-    live: "#",
-    featured: true
-  }
+    title: "real-time-leaderboard",
+    eyebrow: "roadmap.sh challenge",
+    description:
+      "A backend for a real-time leaderboard service. Users compete across games, submit scores and see rankings update live — standings are served from Redis sorted sets for sub-millisecond reads, while the full score history is persisted to PostgreSQL through Prisma. JWT authentication, WebSocket updates and Swagger documentation, containerised with Docker Compose.",
+    tech: ["NestJS", "TypeScript", "PostgreSQL", "Prisma", "Redis"],
+    links: [
+      {
+        label: "Repository",
+        url: "https://github.com/saroto/real-time-leaderboard",
+      },
+      {
+        label: "Challenge",
+        url: "https://roadmap.sh/projects/realtime-leaderboard-system",
+      },
+    ],
+  },
 ];
+
+const pad = (i: number) => String(i + 1).padStart(2, "0");
 ---
 
-<section id="projects" class="scroll-mt-24">
-  <div class="flex items-center gap-4 mb-8 opacity-80">
-    <div class="h-[1px] w-12 bg-indigo-500"></div>
-    <h2 class="text-indigo-400 font-semibold tracking-wider uppercase text-sm flex items-center gap-2">
-      <Folder size={16} /> Featured Projects
-    </h2>
-  </div>
+<section id="work" class="scroll-mt-24">
+  <SectionHeading
+    num="04"
+    title="Selected Work"
+    note={`${projects.length} projects`}
+  />
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {projects.map((project) => (
-      <div class="glass-card flex flex-col justify-between p-8 group hover:-translate-y-2 transition-all duration-500 border border-white/5 hover:border-indigo-500/30 relative overflow-hidden">
-        
-        <!-- Subtle Glow Effect -->
-        <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-colors duration-500"></div>
+  <ol class="mt-12 md:mt-16">
+    {
+      projects.map((project, i) => (
+        <li
+          data-reveal
+          class="group grid grid-cols-12 items-start gap-x-8 gap-y-6 border-t border-rule py-10 transition-colors last:border-b hover:border-rule-strong md:py-14"
+        >
+          <p class="label nums-tabular col-span-2 pt-2 text-rule-strong transition-colors group-hover:text-brand md:col-span-1">
+            {pad(i)}
+          </p>
 
-        <div class="relative z-10 flex flex-col h-full">
-          <div class="flex justify-between items-start mb-6">
-            <div class="p-3 rounded-xl bg-white/5 text-indigo-400 group-hover:text-indigo-300 transition-colors">
-              <Folder size={28} strokeWidth={1.5} />
-            </div>
-            <div class="flex gap-4">
-              <a href={project.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors" aria-label="GitHub Repository">
-                <Github size={20} />
+          <div class="col-span-10 md:col-span-6">
+            <p class="label mb-3 text-brand">{project.eyebrow}</p>
+
+            <h3 class="font-display text-3xl leading-tight md:text-4xl">
+              <a
+                href={project.links[0].url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-start gap-2 transition-colors hover:text-brand"
+              >
+                {project.title}
+                <ArrowUpRight
+                  size={22}
+                  strokeWidth={1.4}
+                  className="mt-1.5 shrink-0 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
+                />
               </a>
-              {project.live !== "#" && (
-                <a href={project.live} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-400 transition-colors" aria-label="Live Project">
-                  <ExternalLink size={20} />
-                </a>
-              )}
-            </div>
-          </div>
-          
-          <div>
-            <h3 class="font-outfit text-2xl font-bold text-slate-200 group-hover:text-white transition-colors mb-4">
-              {project.title}
             </h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+
+            <p class="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
               {project.description}
             </p>
+
+            <ul class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+              {project.links.map((link) => (
+                <li>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="label link-underline inline-flex items-center gap-1.5 text-foreground hover:text-brand"
+                  >
+                    {link.label}
+                    <ArrowUpRight size={12} strokeWidth={1.8} />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div class="mt-auto pt-6 flex flex-wrap gap-2 border-t border-white/5">
-            {project.tech.map((t) => (
-              <span class="text-xs font-mono text-slate-500 group-hover:text-indigo-300 transition-colors">
-                {t}
-              </span>
-            ))}
+          <div class="col-span-12 md:col-span-5 md:pt-2">
+            {project.breakdown ? (
+              /* Structured breakdown: one hairline row per service or fact.
+                 Rows marked private render as plain text, not links. */
+              <dl>
+                {project.breakdown.map((service) => (
+                  <div class="grid grid-cols-3 gap-4 border-t border-rule py-3 last:border-b">
+                    <dt class="label pt-0.5 text-foreground">
+                      {service.private ? (
+                        service.name
+                      ) : (
+                        <a
+                          href={service.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="link-underline hover:text-brand"
+                        >
+                          {service.name}
+                        </a>
+                      )}
+                    </dt>
+                    <dd class="col-span-2 text-xs leading-relaxed text-muted-foreground">
+                      {service.stack}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            ) : (
+              <ul class="flex flex-wrap items-center gap-x-3 gap-y-2 md:justify-end">
+                {project.tech?.map((t) => (
+                  <li class="label border border-rule px-2.5 py-1.5 text-muted-foreground transition-colors group-hover:border-rule-strong">
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-        </div>
-      </div>
-    ))}
-  </div>
-  
-  <div class="mt-12 flex justify-center">
-    <a href="https://github.com/saroto" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full border border-white/10 text-slate-300 font-medium hover:bg-white/5 hover:text-white transition-all flex items-center gap-2">
-      View All on GitHub <Github size={18} />
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="mt-10">
+    <a
+      href="https://github.com/saroto"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="label link-underline inline-flex items-center gap-2 text-foreground hover:text-brand"
+    >
+      All repositories on GitHub
+      <ArrowUpRight size={13} strokeWidth={1.8} />
     </a>
   </div>
 </section>

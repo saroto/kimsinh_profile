@@ -1,0 +1,19 @@
+---
+interface Props {
+  num: string;
+  title: string;
+  note?: string;
+}
+
+const { num, title, note } = Astro.props;
+---
+
+<div class="border-t border-rule pt-5">
+  <div class="flex items-baseline justify-between gap-6">
+    <h2 class="label flex items-baseline gap-3 text-foreground">
+      <span class="nums-tabular text-brand">{num}</span>
+      <span>{title}</span>
+    </h2>
+    {note && <p class="label hidden sm:block">{note}</p>}
+  </div>
+</div>

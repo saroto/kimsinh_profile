@@ -1,151 +1,60 @@
 ---
-import {
-  Github,
-  Linkedin,
-  Send,
-  Code2,
-  Database,
-  Globe,
-  Layout,
-  Server,
-  Terminal,
-} from "lucide-react";
+import SectionHeading from "./SectionHeading.astro";
 
-const socialLinks = [
-  {
-    name: "GitHub",
-    url: "https://github.com/saroto",
-    icon: Github,
-    color: "group-hover:text-slate-300",
-  },
-  {
-    name: "LinkedIn",
-    url: "https://www.linkedin.com/in/kimsinh-seang-6594b9201/",
-    icon: Linkedin,
-    color: "group-hover:text-blue-400",
-  },
-  {
-    name: "Telegram",
-    url: "https://t.me/skimsinh",
-    icon: Send,
-    color: "group-hover:text-sky-400",
-  },
-];
-
-const skills = [
-  { name: "Frontend", icon: Layout, desc: "React, Next.js, Astro, Vue" },
-  { name: "Backend", icon: Server, desc: "Node.js, Golang, Express" },
-  { name: "Database", icon: Database, desc: "PostgreSQL, MongoDB, Redis" },
-  { name: "Tools", icon: Terminal, desc: "Git, Docker, CI/CD, Nginx" },
+const capabilities = [
+  { name: "Frontend", detail: "React, Next.js, Astro, Vue" },
+  { name: "Backend", detail: "Node.js, Express" },
+  { name: "Database", detail: "PostgreSQL, MongoDB, Redis" },
+  { name: "Tools", detail: "Git, Docker, CI/CD, Nginx" },
 ];
 ---
 
-<section id="about" class="pt-24 mt-[-6rem] scroll-mt-24">
-  <div class="flex flex-col gap-6 w-full">
-    <!-- Section Header -->
-    <div class="flex items-center gap-4 mb-4 opacity-80">
-      <div class="h-[1px] w-12 bg-indigo-500"></div>
-      <h2
-        class="text-indigo-400 font-semibold tracking-wider uppercase text-sm"
-      >
-        About Me
-      </h2>
+<section id="about" class="scroll-mt-24">
+  <SectionHeading num="01" title="About" note="Phnom Penh, Cambodia" />
+
+  <div class="mt-12 grid grid-cols-12 gap-x-8 gap-y-14 md:mt-16">
+    <!-- The thesis, set large -->
+    <p
+      data-reveal
+      class="col-span-12 font-display text-title text-balance lg:col-span-10"
+    >
+      I build <em class="italic text-brand">robust, scalable</em> and visually appealing
+      web applications &mdash; turning complex challenges into elegant solutions.
+    </p>
+
+    <!-- Running text, held to a comfortable measure -->
+    <div
+      data-reveal
+      class="col-span-12 space-y-5 text-muted-foreground md:col-span-7 lg:col-span-6 lg:col-start-1"
+    >
+      <p class="leading-relaxed">
+        I&rsquo;m a software developer with a strong foundation in computer
+        science, blending technical expertise with creative problem-solving.
+        Whether it&rsquo;s crafting seamless frontend interfaces or architecting
+        solid backend systems, I care about the details that make software feel
+        considered.
+      </p>
+      <p class="leading-relaxed">
+        When I&rsquo;m not coding, I&rsquo;m exploring new technologies or
+        contributing to the developer community.
+      </p>
     </div>
 
-    <!-- Bento Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Main Bio Card (Spans 2 columns on desktop) -->
-      <div class="md:col-span-2 glass-card p-8 group relative overflow-hidden">
-        <div
-          class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-colors duration-500"
-        >
-        </div>
-        <div class="relative z-10 space-y-6">
-          <Code2 className="w-10 h-10 text-indigo-400 mb-4" />
-          <h3 class="text-3xl font-outfit font-bold text-white">Who I am</h3>
-          <p class="text-slate-300 leading-relaxed text-lg">
-            Hello! I'm <span
-              class="font-semibold text-white bg-white/10 px-2 py-0.5 rounded"
-              >Kimsinh Seang</span
-            >, a passionate software developer driven by the desire to build
-            robust, scalable, and visually appealing web applications.
-          </p>
-          <p class="text-slate-400 leading-relaxed">
-            With a strong foundation in computer science, I blend technical
-            expertise with creative problem-solving. Whether it's crafting
-            seamless frontend interfaces or architecting solid backend systems,
-            I thrive on turning complex challenges into elegant solutions. When
-            I'm not coding, I'm exploring new technologies or contributing to
-            the developer community.
-          </p>
-        </div>
-      </div>
-
-      <!-- Social / Connect Card -->
-      <div
-        class="glass-card p-8 flex flex-col justify-between group relative overflow-hidden"
-      >
-        <div
-          class="absolute -left-20 -bottom-20 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-colors duration-500"
-        >
-        </div>
-        <div class="relative z-10">
-          <Globe className="w-10 h-10 text-purple-400 mb-6" />
-          <h3 class="text-2xl font-outfit font-bold text-white mb-2">
-            Let's Connect
-          </h3>
-          <p class="text-slate-400 text-sm mb-8">
-            Feel free to reach out for collaborations or just a friendly chat.
-          </p>
-
-          <div class="flex flex-col gap-4">
-            {
-              socialLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    target="_blank"
-                    href={link.url}
-                    rel="noopener noreferrer"
-                    class="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group/link"
-                  >
-                    <span class="font-medium text-slate-300 group-hover/link:text-white transition-colors">
-                      {link.name}
-                    </span>
-                    <Icon
-                      className={`w-5 h-5 text-slate-500 ${link.color} transition-colors`}
-                    />
-                  </a>
-                );
-              })
-            }
+    <!-- Capabilities as a definition table, hairline separated -->
+    <dl
+      data-reveal
+      class="col-span-12 md:col-span-5 lg:col-span-5 lg:col-start-8"
+    >
+      {
+        capabilities.map((cap) => (
+          <div class="grid grid-cols-3 gap-4 border-t border-rule py-4 last:border-b">
+            <dt class="label pt-0.5 text-foreground">{cap.name}</dt>
+            <dd class="col-span-2 text-sm text-muted-foreground">
+              {cap.detail}
+            </dd>
           </div>
-        </div>
-      </div>
-
-      <!-- Skills Grid (Spans full width) -->
-      <div
-        class="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2"
-      >
-        {
-          skills.map((skill) => {
-            const Icon = skill.icon;
-            return (
-              <div class="glass flex items-start gap-4 p-5 rounded-2xl hover:-translate-y-1 transition-transform duration-300 border border-white/5 hover:border-indigo-500/30">
-                <div class="p-3 bg-white/5 rounded-xl text-indigo-400">
-                  <Icon size={24} />
-                </div>
-                <div>
-                  <h4 class="text-white font-semibold mb-1">{skill.name}</h4>
-                  <p class="text-slate-400 text-xs leading-relaxed">
-                    {skill.desc}
-                  </p>
-                </div>
-              </div>
-            );
-          })
-        }
-      </div>
-    </div>
+        ))
+      }
+    </dl>
   </div>
 </section>
