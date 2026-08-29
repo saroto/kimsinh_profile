@@ -1,8 +1,16 @@
 ---
 import SectionHeading from "./SectionHeading.astro";
 
-const capabilities = [
+interface Capability {
+  name: string;
+  detail: string;
+  /** Optional proficiency marker, shown right-aligned on the row. */
+  level?: string;
+}
+
+const capabilities: Capability[] = [
   { name: "Frontend", detail: "React, Next.js, Astro, Vue" },
+  { name: "Mobile", detail: "Flutter, Dart", level: "Intermediate" },
   { name: "Backend", detail: "Node.js, Express" },
   { name: "Database", detail: "PostgreSQL, MongoDB, Redis" },
   { name: "Tools", detail: "Git, Docker, CI/CD, Nginx" },
@@ -49,8 +57,9 @@ const capabilities = [
         capabilities.map((cap) => (
           <div class="grid grid-cols-3 gap-4 border-t border-rule py-4 last:border-b">
             <dt class="label pt-0.5 text-foreground">{cap.name}</dt>
-            <dd class="col-span-2 text-sm text-muted-foreground">
-              {cap.detail}
+            <dd class="col-span-2 flex items-baseline justify-between gap-4 text-sm text-muted-foreground">
+              <span>{cap.detail}</span>
+              {cap.level && <span class="label shrink-0">{cap.level}</span>}
             </dd>
           </div>
         ))
