@@ -4,7 +4,20 @@ import { ArrowUpRight } from "lucide-react";
 
 const email = "skimsinh@gmail.com";
 
+// What a client can hire me to build, phrased as outcomes rather than tools.
+const services = [
+  { name: "Web apps", detail: "Next.js, Nuxt, Vue, Astro" },
+  { name: "Mobile apps", detail: "Flutter — iOS and Android from one codebase" },
+  { name: "APIs & backends", detail: "Go, NestJS, Laravel, PostgreSQL" },
+  { name: "AI features", detail: "Chat over your own documents, RAG pipelines" },
+];
+
 const channels = [
+  {
+    name: "Upwork",
+    handle: "Hire me",
+    url: "https://www.upwork.com/freelancers/~01fe34ef86ac1c5281",
+  },
   { name: "GitHub", handle: "@saroto", url: "https://github.com/saroto" },
   {
     name: "LinkedIn",
@@ -37,9 +50,23 @@ const channels = [
         data-reveal
         class="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground"
       >
-        Feel free to reach out for collaborations, freelance work, or just a
-        friendly chat about the web.
+        Available for freelance and contract work. Tell me what you are
+        building and I will tell you honestly whether I am the right fit.
       </p>
+
+      <dl data-reveal class="mt-10 max-w-md">
+        <p class="label mb-1 text-foreground">What I build</p>
+        {
+          services.map((service) => (
+            <div class="grid grid-cols-3 gap-4 border-t border-rule py-3.5 last:border-b">
+              <dt class="label pt-0.5 text-foreground">{service.name}</dt>
+              <dd class="col-span-2 text-xs leading-relaxed text-muted-foreground">
+                {service.detail}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
     </div>
 
     <ul data-reveal class="col-span-12 lg:col-span-5">
