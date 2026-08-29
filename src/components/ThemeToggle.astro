@@ -1,0 +1,34 @@
+---
+import { Sun, Moon } from "lucide-react";
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle colour theme"
+  class="group relative grid h-9 w-9 place-items-center border border-rule text-foreground transition-colors hover:border-rule-strong hover:text-brand"
+>
+  <Sun size={15} strokeWidth={1.6} className="hidden dark:block" />
+  <Moon size={15} strokeWidth={1.6} className="block dark:hidden" />
+</button>
+
+<script is:inline>
+  (() => {
+    const btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+
+    const sync = () =>
+      btn.setAttribute(
+        "aria-pressed",
+        String(document.documentElement.classList.contains("dark")),
+      );
+
+    btn.addEventListener("click", () => {
+      const dark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", dark ? "dark" : "light");
+      sync();
+    });
+
+    sync();
+  })();
+</script>

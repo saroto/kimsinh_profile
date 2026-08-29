@@ -1,60 +1,100 @@
 ---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Kimsinh Seang — Frontend Developer",
+  description = "Frontend developer in Phnom Penh building digital public services with Nuxt, Next.js and Go.",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth h-full">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16110d" media="(prefers-color-scheme: dark)" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Kimsinh Seang | Portfolio</title>
+
+    <!-- Set the theme before first paint so there is no flash. -->
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem("theme");
+        const dark =
+          stored === "dark" ||
+          (!stored && matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
   </head>
-  <body
-    class="relative min-h-screen bg-slate-950 text-slate-200 antialiased selection:bg-indigo-500/30 font-inter overflow-x-hidden"
-  >
-    <!-- Background Effects -->
-    <div class="fixed inset-0 z-[-1]">
-      <div
-        class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-      >
-      </div>
-      <div
-        class="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-indigo-500/20 mix-blend-screen blur-[128px]"
-      >
-      </div>
-      <div
-        class="absolute top-40 -right-40 h-96 w-96 rounded-full bg-purple-500/20 mix-blend-screen blur-[128px]"
-      >
-      </div>
-    </div>
 
-    <div class="flex flex-col min-h-screen">
-      <slot />
+  <body class="min-h-screen">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-foreground focus:px-4 focus:py-2 focus:text-background"
+    >
+      Skip to content
+    </a>
 
-      <footer class="mt-auto py-8">
-        <p
-          class="text-slate-500 text-sm flex justify-center items-center gap-2"
-        >
-          &copy; {new Date().getFullYear()} Kimsinh Seang. Crafted with Astro & Tailwind.
-        </p>
-      </footer>
-    </div>
+    <slot />
+
+    <Footer />
+
+    <!-- Reveal on scroll. No-JS and reduced-motion users see everything already. -->
+    <script is:inline>
+      (() => {
+        const targets = document.querySelectorAll("[data-reveal]");
+        if (!targets.length) return;
+
+        if (
+          !("IntersectionObserver" in window) ||
+          matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          targets.forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
+            }
+          },
+          { rootMargin: "0px 0px -12% 0px", threshold: 0.05 },
+        );
+
+        targets.forEach((el) => io.observe(el));
+      })();
+    </script>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

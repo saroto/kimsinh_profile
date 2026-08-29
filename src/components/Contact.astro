@@ -1,0 +1,72 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import { ArrowUpRight } from "lucide-react";
+
+const email = "skimsinh@gmail.com";
+
+const channels = [
+  { name: "GitHub", handle: "@saroto", url: "https://github.com/saroto" },
+  {
+    name: "LinkedIn",
+    handle: "Kimsinh Seang",
+    url: "https://www.linkedin.com/in/kimsinh-seang-6594b9201/",
+  },
+  { name: "Telegram", handle: "@skimsinh", url: "https://t.me/skimsinh" },
+];
+---
+
+<section id="contact" class="scroll-mt-24">
+  <SectionHeading num="05" title="Contact" note="Open to new opportunities" />
+
+  <div class="mt-12 grid grid-cols-12 gap-x-8 gap-y-14 md:mt-16">
+    <div class="col-span-12 lg:col-span-7">
+      <p data-reveal class="font-display text-title text-balance">
+        Have something in mind?
+        <span class="italic text-brand">Let&rsquo;s talk.</span>
+      </p>
+
+      <a
+        data-reveal
+        href={`mailto:${email}`}
+        class="link-underline mt-8 inline-block font-display text-2xl leading-tight hover:text-brand sm:text-4xl"
+      >
+        {email}
+      </a>
+
+      <p
+        data-reveal
+        class="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground"
+      >
+        Feel free to reach out for collaborations, freelance work, or just a
+        friendly chat about the web.
+      </p>
+    </div>
+
+    <ul data-reveal class="col-span-12 lg:col-span-5">
+      {
+        channels.map((channel) => (
+          <li>
+            <a
+              href={channel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-baseline justify-between gap-6 border-t border-rule py-5 transition-colors hover:border-rule-strong"
+            >
+              <span class="label text-foreground transition-colors group-hover:text-brand">
+                {channel.name}
+              </span>
+              <span class="flex items-center gap-2 text-sm text-muted-foreground transition-colors group-hover:text-foreground">
+                {channel.handle}
+                <ArrowUpRight
+                  size={14}
+                  strokeWidth={1.6}
+                  className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

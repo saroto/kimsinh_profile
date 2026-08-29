@@ -1,55 +1,35 @@
 ---
-import { GraduationCap, CalendarDays } from "lucide-react";
+import SectionHeading from "./SectionHeading.astro";
 ---
 
 <section id="education" class="scroll-mt-24">
-  <div class="flex items-center gap-4 mb-8 opacity-80">
-    <div class="h-[1px] w-12 bg-indigo-500"></div>
-    <h2
-      class="text-indigo-400 font-semibold tracking-wider uppercase text-sm flex items-center gap-2"
-    >
-      <GraduationCap size={16} /> Education
-    </h2>
-  </div>
+  <SectionHeading num="03" title="Education" />
 
-  <div
-    class="glass-card p-8 border border-white/5 relative overflow-hidden group"
-  >
-    <!-- Decorative background -->
-    <div
-      class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl group-hover:bg-pink-500/20 transition-colors duration-500"
+  <div class="mt-12 md:mt-16">
+    <article
+      data-reveal
+      class="group grid grid-cols-12 gap-x-8 gap-y-4 border-y border-rule py-10 transition-colors hover:border-rule-strong md:py-12"
     >
-    </div>
+      <div class="col-span-12 md:col-span-3">
+        <p class="label nums-tabular">2021 &mdash; 2025</p>
+        <p class="label mt-3 text-brand">Graduated with honours</p>
+      </div>
 
-    <div
-      class="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between"
-    >
-      <div class="space-y-4">
+      <div class="col-span-12 md:col-span-9">
         <h3
-          class="text-2xl font-outfit font-bold text-white group-hover:text-indigo-300 transition-colors"
+          class="font-display text-3xl leading-tight transition-colors group-hover:text-brand md:text-4xl"
         >
           Bachelor of Computer Science
         </h3>
-        <p class="text-lg text-indigo-400 font-medium">
+        <p class="mt-1.5 text-sm text-muted-foreground">
           Paragon International University
         </p>
-        <p class="text-slate-400 max-w-xl leading-relaxed">
+        <p class="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
           Focused on software engineering, algorithms, and system architecture.
-          Developed a strong foundation in modern web development methodologies
-          and database management.
+          Developed a strong foundation in modern web development
+          methodologies and database management.
         </p>
       </div>
-
-      <div class="flex-shrink-0 flex flex-col items-start md:items-end gap-2">
-        <span
-          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-sm font-medium text-slate-300 border border-white/5"
-        >
-          <CalendarDays size={14} class="text-indigo-400" /> 2021 - 2025
-        </span>
-        <span class="text-sm text-slate-500 italic mt-2 md:mt-0">
-          Graduated with Honors
-        </span>
-      </div>
-    </div>
+    </article>
   </div>
 </section>
