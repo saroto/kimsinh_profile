@@ -1,5 +1,11 @@
 ---
 import SectionHeading from "./SectionHeading.astro";
+import { ArrowUpRight } from "lucide-react";
+
+interface ExperienceLink {
+  label: string;
+  url: string;
+}
 
 interface Experience {
   role: string;
@@ -10,6 +16,8 @@ interface Experience {
   status?: string;
   description: string[];
   tech: string[];
+  /** Live product or company links for this role. */
+  links?: ExperienceLink[];
 }
 
 const experiences: Experience[] = [
@@ -37,6 +45,7 @@ const experiences: Experience[] = [
       "Added in-app booking so users can reserve a place ahead of time.",
     ],
     tech: ["Flutter", "Dart"],
+    links: [{ label: "goloca.travel", url: "https://goloca.travel/en" }],
   },
   {
     role: "Web Developer",
@@ -137,6 +146,24 @@ const experiences: Experience[] = [
                 </li>
               ))}
             </ul>
+
+            {exp.links && (
+              <ul class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+                {exp.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="label link-underline inline-flex items-center gap-1.5 text-foreground hover:text-brand"
+                    >
+                      {link.label}
+                      <ArrowUpRight size={12} strokeWidth={1.8} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </article>
       ))
