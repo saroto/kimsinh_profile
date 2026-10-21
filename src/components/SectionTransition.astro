@@ -1,0 +1,50 @@
+---
+import SectionHUD from "./three/SectionHUD.tsx";
+---
+
+<div id="section-transition-container" class="fixed inset-0 pointer-events-none z-20 overflow-hidden" aria-hidden="true">
+  <canvas
+    id="three-transition-canvas"
+    class="w-full h-full pointer-events-none"
+  ></canvas>
+  <SectionHUD client:load />
+</div>
+
+<script>
+  import { SectionTransitionScene } from "../lib/three/SectionTransitionScene";
+
+  let transitionSceneInstance: SectionTransitionScene | null = null;
+
+  function initTransitionScene() {
+    const canvas = document.getElementById("three-transition-canvas") as HTMLCanvasElement;
+    if (!canvas) return;
+
+    try {
+      const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+      if (!gl) return;
+    } catch {
+      return;
+    }
+
+    if (transitionSceneInstance) {
+      transitionSceneInstance.dispose();
+      transitionSceneInstance = null;
+    }
+
+    transitionSceneInstance = new SectionTransitionScene(canvas);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTransitionScene);
+  } else {
+    initTransitionScene();
+  }
+
+  document.addEventListener("astro:page-load", initTransitionScene);
+  document.addEventListener("astro:before-swap", () => {
+    if (transitionSceneInstance) {
+      transitionSceneInstance.dispose();
+      transitionSceneInstance = null;
+    }
+  });
+</script>

@@ -8,12 +8,25 @@ interface Props {
 const { num, title, note } = Astro.props;
 ---
 
-<div class="border-t border-rule pt-5">
-  <div class="flex items-baseline justify-between gap-6">
-    <h2 class="label flex items-baseline gap-3 text-foreground">
-      <span class="nums-tabular text-brand">{num}</span>
-      <span>{title}</span>
+<div class="section-heading-wrap relative group" data-reveal>
+  <!-- Animated drawing hairline rule that sweeps across on reveal -->
+  <div class="relative h-[1px] w-full bg-rule/50 overflow-hidden">
+    <div
+      class="section-rule-bar absolute inset-y-0 left-0 w-full bg-linear-to-r from-brand via-brand to-rule-strong origin-left scale-x-0 transition-transform duration-1000 ease-out"
+    ></div>
+  </div>
+
+  <div class="flex items-baseline justify-between gap-6 pt-5">
+    <h2 class="label flex items-baseline gap-3 text-foreground tracking-wider">
+      <span class="nums-tabular text-brand font-semibold">{num}</span>
+      <span class="font-medium text-foreground tracking-widest">{title}</span>
     </h2>
-    {note && <p class="label hidden sm:block">{note}</p>}
+    {note && <p class="label hidden sm:block text-muted-foreground">{note}</p>}
   </div>
 </div>
+
+<style>
+  :global(.is-visible) .section-rule-bar {
+    transform: scaleX(1);
+  }
+</style>

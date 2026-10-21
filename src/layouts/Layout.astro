@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
+import SectionTransition from "../components/SectionTransition.astro";
 
 interface Props {
   title?: string;
@@ -56,13 +57,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
 
-  <body class="min-h-screen">
+  <body class="min-h-screen relative overflow-x-hidden">
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-foreground focus:px-4 focus:py-2 focus:text-background"
     >
       Skip to content
     </a>
+
+    <SectionTransition />
 
     <slot />
 

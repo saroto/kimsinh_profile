@@ -26,8 +26,6 @@ interface Project {
   tech?: string[];
 }
 
-// `private: true` repos are not linked — they would 404 for visitors.
-// Flip the flag once a repo is made public and it becomes a link.
 const projects: Project[] = [
   {
     title: "Scholarize",
@@ -180,8 +178,6 @@ const pad = (i: number) => String(i + 1).padStart(2, "0");
 
           <div class="col-span-12 md:col-span-5 md:pt-2">
             {project.breakdown ? (
-              /* Structured breakdown: one hairline row per service or fact.
-                 Rows marked private render as plain text, not links. */
               <dl>
                 {project.breakdown.map((service) => (
                   <div class="grid grid-cols-3 gap-4 border-t border-rule py-3 last:border-b">
